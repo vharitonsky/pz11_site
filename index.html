@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Практична 11 — персональне завдання</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#fff; --ink:#15181d; --muted:#5a6472;
+    --line:#e3e7ec; --accent:#0563bb; --code:#0b7a33; --warn:#9a3b1b;
+    --ok:#0b7a33; --chip:#eef2f7;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#0f1216; --card:#171b21; --ink:#e7ebf0; --muted:#9aa5b1;
+    --line:#2a313a; --accent:#5aa2e8; --code:#5bd18a; --warn:#e2975f;
+    --ok:#5bd18a; --chip:#222832;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0f1216; --card:#171b21; --ink:#e7ebf0; --muted:#9aa5b1;
+    --line:#2a313a; --accent:#5aa2e8; --code:#5bd18a; --warn:#e2975f;
+    --ok:#5bd18a; --chip:#222832;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  .wrap{max-width:900px;margin:0 auto;padding:32px 16px 64px}
+  h1{font-size:1.6rem;margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 24px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:20px;margin:16px 0}
+  label{display:block;font-weight:600;margin-bottom:8px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  input[type=text],textarea,select{font-size:1rem;padding:9px 11px;border:1px solid var(--line);
+    border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+  textarea{min-height:60px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem}
+  #num{flex:1;min-width:160px;font-size:1.1rem}
+  button{font-size:1rem;font-weight:600;padding:10px 18px;border:0;border-radius:8px;
+    background:var(--accent);color:#fff;cursor:pointer}
+  button.ghost{background:var(--chip);color:var(--ink);border:1px solid var(--line)}
+  .msg{margin-top:12px;color:var(--warn);font-weight:600;min-height:1.2em}
+  .hint{color:var(--muted);font-size:.9rem;margin-top:8px}
+  h2{font-size:1.15rem;margin:24px 0 8px}
+  h3{font-size:1rem;margin:18px 0 6px}
+  table{width:100%;border-collapse:collapse;font-size:.95rem}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600}
+  td.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;word-break:break-all}
+  .eco{font-size:.72rem;font-weight:600;padding:1px 7px;border-radius:999px;
+    background:var(--chip);color:var(--muted);border:1px solid var(--line)}
+  .verdict{white-space:nowrap}
+  .verdict label{display:inline-flex;align-items:center;gap:4px;font-weight:400;
+    margin:0 10px 0 0;cursor:pointer}
+  pre{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px;
+    overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;
+    color:var(--code);line-height:1.5}
+  ol.steps{margin:8px 0 0;padding-left:22px}
+  ol.steps>li{margin:10px 0}
+  ul{padding-left:22px}
+  .ex{background:var(--bg);border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:8px;padding:12px 14px;margin:10px 0}
+  .ex b{color:var(--ink)}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;
+    background:var(--chip);padding:1px 5px;border-radius:4px}
+  .checks label{display:flex;gap:10px;align-items:flex-start;padding:9px 11px;
+    border:1px solid var(--line);border-radius:8px;margin:7px 0;font-weight:400;cursor:pointer}
+  .map-row{display:flex;gap:12px;align-items:center;margin:8px 0;flex-wrap:wrap}
+  .map-row .att{flex:1;min-width:220px}
+  .map-row select{flex:1;min-width:220px;width:auto}
+  .hidden{display:none}
+  footer{color:var(--muted);font-size:.85rem;margin-top:32px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Практична 11 — персональне завдання</h1>
+  <p class="sub">Захист клієнта і транспорту: заголовки безпеки, CSP, TLS.
+    Введіть свій user-id зі списку групи, виконайте завдання прямо на сторінці та
+    завантажте відповіді у файл для здачі.</p>
+
+  <div class="card">
+    <label for="num">Ваш ідентифікатор (user-id)</label>
+    <div class="row">
+      <input id="num" type="text" inputmode="text" placeholder="напр. user1288"
+        autocomplete="off" spellcheck="false">
+      <button id="go">Отримати завдання</button>
+    </div>
+    <div id="msg" class="msg"></div>
+    <div id="hint" class="hint"></div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0">Що і як робити</h2>
+    <p class="hint">Інструкція однакова для всіх. Персональні дані з'являться нижче
+      після вводу user-id. Слабкість протоколів/шифрів і проблеми CSP визначаєте самі —
+      на сторінці вердиктів немає.</p>
+    <ol class="steps">
+      <li><b>Заголовки безпеки.</b> За сирими response-заголовками позначте, які
+        захисні заголовки <b>присутні</b>, а які <b>відсутні</b>; які <b>cookie-прапорці</b>
+        бракують (<code>HttpOnly</code>, <code>Secure</code>, <code>SameSite</code>).
+        Перевірити можна через <b>securityheaders.com</b> / <b>Mozilla Observatory</b>.</li>
+      <li><b>CSP.</b> Позначте всі <b>проблеми</b> поточної політики та впишіть
+        <b>цільову CSP</b>, що блокує inline-скрипти. Перевіряйте в <b>Google CSP Evaluator</b>.</li>
+      <li><b>TLS.</b> Для кожного ввімкненого протоколу/шифру позначте <b>OK</b> чи
+        <b>слабкий</b> (логіка <b>Qualys SSL Labs</b>).</li>
+      <li><b>Мапінг атака → захід.</b> Кожній атаці зіставте захід, що її зупиняє.</li>
+      <li><b>Здача.</b> Натисніть <b>«Завантажити відповіді (JSON)»</b> і прикріпіть файл
+        до завдання. Самоперевірки тут немає — оцінює викладач.</li>
+    </ol>
+
+    <h2>Приклад (на сторонніх даних — не з вашого варіанту)</h2>
+    <div class="ex"><b>Заголовки:</b> у відповіді немає <code>Strict-Transport-Security</code>
+      → <b>відсутній</b>; cookie <code>session=…; Secure</code> без <code>HttpOnly</code>
+      → прапорець <b>HttpOnly відсутній</b>.</div>
+    <div class="ex"><b>CSP:</b> <code>script-src 'self' 'unsafe-inline'</code> →
+      проблема: дозволяє inline-скрипт; немає <code>object-src</code>/<code>frame-ancestors</code>.
+      Цільова: <code>default-src 'self'; script-src 'self'; object-src 'none'; frame-ancestors 'none'</code>.</div>
+    <div class="ex"><b>TLS:</b> <code>TLS 1.0</code>, <code>RC4</code> → слабкі;
+      <code>TLS 1.3</code> → OK.</div>
+  </div>
+
+  <div id="result" class="hidden">
+    <div class="card">
+      <div class="row" style="margin-bottom:6px">
+        <button class="ghost" id="dlAll">⬇ Завантажити відповіді (JSON)</button>
+      </div>
+      <h2 style="margin-top:0">Завдання — variant <span id="vnum"></span></h2>
+
+      <h3>Сирі response-заголовки <span id="host" class="mono"></span></h3>
+      <pre id="rawheaders"></pre>
+
+      <h3>Крок 1. Заголовки безпеки — присутній / відсутній</h3>
+      <table id="headers">
+        <thead><tr><th>Заголовок</th><th class="verdict">Вердикт</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <h3 style="margin-top:14px">Cookie — позначте <u>відсутні</u> прапорці</h3>
+      <div id="cookie" class="checks"></div>
+
+      <h3>Крок 2. CSP — проблеми й цільова політика</h3>
+      <p class="hint">Поточна CSP: <code id="cspstr"></code></p>
+      <div id="cspprobs" class="checks"></div>
+      <label for="cspfix" style="margin-top:10px">Цільова CSP (що блокує inline):</label>
+      <textarea id="cspfix" placeholder="default-src 'self'; script-src 'self'; object-src 'none'; frame-ancestors 'none'"></textarea>
+
+      <h3>Крок 3. TLS — OK / слабкий</h3>
+      <table id="tls">
+        <thead><tr><th>Протокол / шифр</th><th class="verdict">Вердикт</th></tr></thead>
+        <tbody></tbody>
+      </table>
+
+      <h3>Крок 4. Мапінг атака → захід</h3>
+      <div id="mapping"></div>
+
+      <div class="row" style="margin-top:18px">
+        <button id="dlAll2">⬇ Завантажити відповіді (JSON)</button>
+      </div>
+      <div id="savemsg" class="hint"></div>
+    </div>
+  </div>
+
+  <footer>
+    Усі дані синтетичні (вузол <code>shop.example.com</code> не існує). Файл відповідей
+    має містити ваш user-id.
+  </footer>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let current = null;
+
+function esc(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+
+async function loadVariant(id){
+  $("msg").textContent = "";
+  const base = `t/${id}/`;
+  let resp, csp, tls, map, meta;
+  try {
+    const [a,b,c,d,e] = await Promise.all([
+      fetch(base+"resp.json",{cache:"no-store"}),
+      fetch(base+"csp.json",{cache:"no-store"}),
+      fetch(base+"tls.json",{cache:"no-store"}),
+      fetch(base+"map.json",{cache:"no-store"}),
+      fetch(base+"meta.json",{cache:"no-store"}),
+    ]);
+    if(!a.ok||!b.ok||!c.ok||!d.ok||!e.ok) throw 0;
+    resp=await a.json(); csp=await b.json(); tls=await c.json();
+    map=await d.json(); meta=await e.json();
+  } catch(e){
+    $("result").classList.add("hidden");
+    $("msg").textContent = "Набору з таким user-id немає — перевірте id зі списку.";
+    return;
+  }
+
+  $("vnum").textContent = meta.variant ?? id;
+  $("host").textContent = resp.host || "";
+  $("rawheaders").textContent = resp.response_headers || "";
+
+  // Крок 1: заголовки (радіо present/missing)
+  const htb = $("headers").querySelector("tbody"); htb.innerHTML = "";
+  resp.header_items.forEach((h, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML =
+      `<td class="mono">${esc(h.name)}</td>`+
+      `<td class="verdict" data-name="${esc(h.name)}">`+
+        `<label><input type="radio" name="h_${i}" value="PRESENT"> присутній</label>`+
+        `<label><input type="radio" name="h_${i}" value="MISSING"> відсутній</label>`+
+      `</td>`;
+    tr.querySelector(".verdict").dataset.hname = h.name;
+    htb.appendChild(tr);
+  });
+  // cookie flags (чекбокс «відсутній»)
+  const ck = $("cookie"); ck.innerHTML = "";
+  ck.innerHTML = `<p class="hint" style="margin:0 0 4px">Set-Cookie: <code>${esc(resp.cookie_line)}</code></p>`;
+  resp.cookie_flags.forEach(fl => {
+    const lab = document.createElement("label");
+    lab.innerHTML = `<input type="checkbox" class="ckf" data-flag="${esc(fl)}"><span>${esc(fl)} — відсутній</span>`;
+    ck.appendChild(lab);
+  });
+
+  // Крок 2: CSP
+  $("cspstr").textContent = csp.csp || "";
+  const cp = $("cspprobs"); cp.innerHTML = "";
+  csp.problem_options.forEach(o => {
+    const lab = document.createElement("label");
+    lab.innerHTML = `<input type="checkbox" class="cspp" data-key="${esc(o.key)}"><span>${esc(o.label)}</span>`;
+    cp.appendChild(lab);
+  });
+
+  // Крок 3: TLS (радіо OK/weak)
+  const ttb = $("tls").querySelector("tbody"); ttb.innerHTML = "";
+  tls.items.forEach((t, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML =
+      `<td class="mono">${esc(t.name)} <span class="eco">${esc(t.kind)}</span></td>`+
+      `<td class="verdict" data-tname="${esc(t.name)}">`+
+        `<label><input type="radio" name="t_${i}" value="OK"> OK</label>`+
+        `<label><input type="radio" name="t_${i}" value="WEAK"> слабкий</label>`+
+      `</td>`;
+    ttb.appendChild(tr);
+  });
+
+  // Крок 4: мапінг (select контролю на кожну атаку)
+  const md = $("mapping"); md.innerHTML = "";
+  const optionsHtml = `<option value="">— оберіть захід —</option>` +
+    map.controls.map(c => `<option value="${esc(c.key)}">${esc(c.label)}</option>`).join("");
+  map.attacks.forEach((att, i) => {
+    const div = document.createElement("div");
+    div.className = "map-row";
+    div.innerHTML = `<div class="att"><b>${esc(att)}</b></div>`+
+      `<select class="mapsel" data-att="${esc(att)}">${optionsHtml}</select>`;
+    md.appendChild(div);
+  });
+
+  current = { id, headers: resp.header_items, tls: tls.items };
+  $("result").classList.remove("hidden");
+  $("savemsg").textContent = "";
+  try { localStorage.setItem("pz11_id", id); } catch(e){}
+}
+
+function collectAnswers(){
+  let unanswered = 0;
+  const headers = {};
+  current.headers.forEach((h, i) => {
+    const sel = document.querySelector(`input[name="h_${i}"]:checked`);
+    if(sel) headers[h.name] = sel.value; else unanswered++;
+  });
+  const cookie_missing = [...document.querySelectorAll(".ckf:checked")].map(c => c.dataset.flag);
+  const csp_problems = [...document.querySelectorAll(".cspp:checked")].map(c => c.dataset.key);
+  const tls = {};
+  current.tls.forEach((t, i) => {
+    const sel = document.querySelector(`input[name="t_${i}"]:checked`);
+    if(sel) tls[t.name] = sel.value; else unanswered++;
+  });
+  const mapping = {};
+  document.querySelectorAll(".mapsel").forEach(s => {
+    if(s.value) mapping[s.dataset.att] = s.value; else unanswered++;
+  });
+  return {
+    variant: current.id,
+    submitted_at: new Date().toISOString(),
+    headers, cookie_missing, csp_problems,
+    csp_fix: ($("cspfix")?.value || "").trim(),
+    tls, mapping,
+    _unanswered: unanswered,
+  };
+}
+
+function exportJson(){
+  if(!current) return;
+  const ans = collectAnswers();
+  const warnUn = ans._unanswered;
+  delete ans._unanswered;
+  const blob = new Blob([JSON.stringify(ans, null, 2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `pz11_${current.id}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  $("savemsg").textContent = warnUn
+    ? `Файл збережено. Увага: ${warnUn} пунктів без відповіді — можна дозаповнити й завантажити ще раз.`
+    : "Файл збережено. Прикріпіть його до завдання.";
+}
+
+$("go").addEventListener("click", () => {
+  const id = $("num").value.trim();
+  if(!id){ $("msg").textContent = "Введіть свій user-id."; return; }
+  loadVariant(encodeURIComponent(id));
+});
+$("num").addEventListener("keydown", e => { if(e.key==="Enter") $("go").click(); });
+$("dlAll").addEventListener("click", exportJson);
+$("dlAll2").addEventListener("click", exportJson);
+
+(async () => {
+  try {
+    const r = await fetch("t/index.json",{cache:"no-store"});
+    if(r.ok){
+      const list = await r.json();
+      if(list.length) $("hint").textContent =
+        `Доступно варіантів: ${list.length}. Ваш user-id — зі списку групи.`;
+    }
+  } catch(e){}
+  try { const last = localStorage.getItem("pz11_id"); if(last) $("num").value = last; } catch(e){}
+})();
+</script>
+</body>
+</html>

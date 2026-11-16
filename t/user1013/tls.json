@@ -1,0 +1,21 @@
+{
+  "variant": "user1013",
+  "items": [
+    {
+      "name": "TLS 1.1",
+      "kind": "protocol"
+    },
+    {
+      "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+      "kind": "cipher"
+    },
+    {
+      "name": "TLS 1.2",
+      "kind": "protocol"
+    },
+    {
+      "name": "TLS 1.3",
+      "kind": "protocol"
+    }
+  ]
+}

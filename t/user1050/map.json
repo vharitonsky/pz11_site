@@ -1,0 +1,31 @@
+{
+  "variant": "user1050",
+  "attacks": [
+    "Downgrade на HTTP / sslstrip",
+    "CSRF (підробка міжсайтового запиту)",
+    "Відображений / збережений XSS",
+    "Крадіжка session-cookie через JavaScript"
+  ],
+  "controls": [
+    {
+      "key": "HSTS",
+      "label": "HSTS (примус HTTPS)"
+    },
+    {
+      "key": "FRAME_ANCESTORS",
+      "label": "frame-ancestors 'none' / X-Frame-Options"
+    },
+    {
+      "key": "COOKIE_FLAGS",
+      "label": "HttpOnly + Secure на cookie"
+    },
+    {
+      "key": "CSP_ENCODE",
+      "label": "CSP 'self' (без inline) + output encoding за контекстом"
+    },
+    {
+      "key": "SAMESITE_TOKEN",
+      "label": "SameSite-cookie + CSRF-токен"
+    }
+  ]
+}

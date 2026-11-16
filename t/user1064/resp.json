@@ -1,0 +1,25 @@
+{
+  "variant": "user1064",
+  "host": "shop.example.com",
+  "response_headers": "HTTP/1.1 200 OK\nContent-Type: text/html; charset=utf-8\nServer: nginx\nContent-Security-Policy: default-src *\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Frame-Options: DENY\nSet-Cookie: session=a1b2c3; SameSite=Strict\n",
+  "header_items": [
+    {
+      "name": "Strict-Transport-Security"
+    },
+    {
+      "name": "X-Frame-Options"
+    },
+    {
+      "name": "X-Content-Type-Options"
+    },
+    {
+      "name": "Referrer-Policy"
+    }
+  ],
+  "cookie_line": "session=a1b2c3; SameSite=Strict",
+  "cookie_flags": [
+    "HttpOnly",
+    "Secure",
+    "SameSite=Strict"
+  ]
+}

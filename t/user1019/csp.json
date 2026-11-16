@@ -1,0 +1,26 @@
+{
+  "variant": "user1019",
+  "csp": "default-src 'self'; script-src 'self' data:",
+  "problem_options": [
+    {
+      "key": "UNSAFE_INLINE",
+      "label": "script-src дозволяє 'unsafe-inline' — inline-скрипт виконається (XSS не блокується)"
+    },
+    {
+      "key": "ANY_SRC",
+      "label": "використано '*' — дозволено завантаження з будь-якого джерела"
+    },
+    {
+      "key": "DATA_SRC",
+      "label": "script-src дозволяє data: — обхід через data-URI"
+    },
+    {
+      "key": "NO_OBJECT",
+      "label": "немає object-src 'none' — не закрито плагіни/legacy-вектори"
+    },
+    {
+      "key": "NO_FRAME_ANCESTORS",
+      "label": "немає frame-ancestors — не захищає від clickjacking"
+    }
+  ]
+}

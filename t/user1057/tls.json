@@ -1,0 +1,21 @@
+{
+  "variant": "user1057",
+  "items": [
+    {
+      "name": "TLS_RSA_WITH_RC4_128_SHA",
+      "kind": "cipher"
+    },
+    {
+      "name": "TLS 1.2",
+      "kind": "protocol"
+    },
+    {
+      "name": "TLS 1.3",
+      "kind": "protocol"
+    },
+    {
+      "name": "TLS_AES_256_GCM_SHA384",
+      "kind": "cipher"
+    }
+  ]
+}

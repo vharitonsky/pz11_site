@@ -1,0 +1,31 @@
+{
+  "variant": "user4145",
+  "attacks": [
+    "Clickjacking (вбудовування в чужий iframe)",
+    "Крадіжка session-cookie через JavaScript",
+    "CSRF (підробка міжсайтового запиту)",
+    "Downgrade на HTTP / sslstrip"
+  ],
+  "controls": [
+    {
+      "key": "COOKIE_FLAGS",
+      "label": "HttpOnly + Secure на cookie"
+    },
+    {
+      "key": "SAMESITE_TOKEN",
+      "label": "SameSite-cookie + CSRF-токен"
+    },
+    {
+      "key": "CSP_ENCODE",
+      "label": "CSP 'self' (без inline) + output encoding за контекстом"
+    },
+    {
+      "key": "FRAME_ANCESTORS",
+      "label": "frame-ancestors 'none' / X-Frame-Options"
+    },
+    {
+      "key": "HSTS",
+      "label": "HSTS (примус HTTPS)"
+    }
+  ]
+}
