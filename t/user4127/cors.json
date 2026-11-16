@@ -1,0 +1,36 @@
+{
+  "variant": "user4127",
+  "request_origin": "https://shop.example.com",
+  "cors_headers": [
+    {
+      "name": "Access-Control-Allow-Origin",
+      "value": "https://shop.example.com"
+    },
+    {
+      "name": "Access-Control-Allow-Credentials",
+      "value": "true"
+    },
+    {
+      "name": "Vary",
+      "value": "Origin"
+    }
+  ],
+  "problem_options": [
+    {
+      "key": "WILDCARD",
+      "label": "Access-Control-Allow-Origin: * — довіра будь-якому сайту"
+    },
+    {
+      "key": "REFLECTED",
+      "label": "ACAO віддзеркалює Origin запиту без allowlist (динамічне відбиття)"
+    },
+    {
+      "key": "CREDENTIALS",
+      "label": "Allow-Credentials: true з широким/відбитим ACAO — читання даних під сесією жертви"
+    },
+    {
+      "key": "NULL_ORIGIN",
+      "label": "ACAO: null прийнято — обходиться через sandbox-iframe"
+    }
+  ]
+}

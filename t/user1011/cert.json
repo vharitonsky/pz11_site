@@ -1,0 +1,31 @@
+{
+  "variant": "user1011",
+  "cert_text": "Certificate:\n  Subject:   CN=shop.example.com, O=Example Shop LLC, C=UA\n  SAN:       DNS:shop.example.com, DNS:www.shop.example.com\n  Issuer:    CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1, O=DigiCert Inc, C=US\n  Validity:\n    Not Before: 2027-01-10 00:00:00 UTC\n    Not After : 2028-01-10 00:00:00 UTC\n  Public Key: RSA 4096 bit\n  Signature Algorithm: sha256WithRSAEncryption\n  Serving host: shop.example.com   (сьогодні: 2026-11-16)\n",
+  "serving_host": "shop.example.com",
+  "problem_options": [
+    {
+      "key": "EXPIRED",
+      "label": "Термін дії минув (Not After у минулому)"
+    },
+    {
+      "key": "NOT_YET",
+      "label": "Ще не чинний (Not Before у майбутньому)"
+    },
+    {
+      "key": "SELF_SIGNED",
+      "label": "Самопідписаний (Issuer == Subject) — немає довіреного ланцюга"
+    },
+    {
+      "key": "WEAK_KEY",
+      "label": "Слабкий ключ (RSA < 2048)"
+    },
+    {
+      "key": "SHA1_SIG",
+      "label": "Підпис SHA-1 — зламний алгоритм"
+    },
+    {
+      "key": "HOST_MISMATCH",
+      "label": "CN/SAN не покривають host, що обслуговується"
+    }
+  ]
+}
